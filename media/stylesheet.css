@@ -26,21 +26,35 @@ h1, h2, h3, h4, h5, h6, p, strong, b { font-family: avenir55roman;}
 
 /* Begin Nav */
 .navbar {
+	border-radius:0px;
+	border:0;
 	background-color: #308b8c;
 	color: white;
 	margin-bottom: 0px;
+}
+
+.navbar-brand {
+	font-size:30px;
+	cursor:pointer;
+	color:white;
 }
 /* End Nav */
 
 /* Begin Side Nav */
 .sidenav {
+		font-size:30px;
+		cursor:pointer;
+		color:white;
+		display:none;
     height: 100%;
-    width: 0;
+    width: 25%;
+		max-width:400px;
+		min-width:200px;
     position: fixed;
     z-index: 1;
     top: 0;
     left: 0;
-	background-color: #616161;
+		background-color: #616161;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
