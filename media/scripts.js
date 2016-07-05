@@ -1,4 +1,8 @@
 $(document).ready(function () {
+//onload settings
+
+	$(".sidenav").css({"left" : $(".sidenav").width() * -1 });
+
 	$("input[name='fruitsVegetables']").change(function () {
 		var maxAllowed = 2;
 		var cnt = $("input[name='fruitsVegetables']:checked").length;
@@ -11,27 +15,21 @@ $(document).ready(function () {
 });
 
 function showAlert() {
-    var x = document.getElementById("snackbar")
+    var x = document.getElementById("snackbar");
     x.className = "show";
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
 }
 
-var close = document.getElementsByClassName("closebtn");
-var i;
-for (i = 0; i < close.length; i++) {
-    close[i].onclick = function(){
-        var div = this.parentElement;
-        div.style.opacity = "0";
-        setTimeout(function(){ div.style.display = "none"; }, 600);
-    }
-}
+$(".closebtn, .container").click(function() {
+	closeNav();
+});
 
 function openNav() {
-    document.getElementById("sidenav").style.width = "250px";
-    document.getElementById("container").style.marginLeft = "250px";
+	$(".sidenav").show(0);
+    document.getElementById("sidenav").style.left = "0px";
 }
 
 function closeNav() {
-    document.getElementById("sidenav").style.width = "0";
-    document.getElementById("container").style.marginLeft= "0";
+	var width = $(".sidenav").width();
+    document.getElementById("sidenav").style.left = (width * -1) + "px";
 }
