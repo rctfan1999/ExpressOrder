@@ -5,23 +5,23 @@ h1, h2, h3, h4, h5, h6, p, strong, b { font-family: avenir55roman;}
 /* End Global Styles */
 
 /* Begin Fonts */
-@font-face{font-family:"avenir55roman";src:url("fonts/avenir55roman.ttf");}
-@font-face{font-family:"avenir55romanoblique";src:url("fonts/avenir55romanoblique.ttf");}
-@font-face{font-family:"avenir85heavy";src:url("fonts/avenir85heavy.ttf");}
-@font-face{font-family:"pepactivities";src:url("fonts/pepactivities.ttf");}
-@font-face{font-family:"pepbrands";src:url("fonts/pepbrands.ttf");}
-@font-face{font-family:"pepcommerce";src:url("fonts/pepcommerce.ttf");}
-@font-face{font-family:"pepdining";src:url("fonts/pepdining.ttf");}
-@font-face{font-family:"pepicon";src:url("fonts/pepicon.ttf");}
-@font-face{font-family:"pepinteractive";src:url("fonts/pepinteractive.ttf");}
-@font-face{font-family:"pepmdx";src:url("fonts/pepmdx.ttf");}
-@font-face{font-family:"pepmedia";src:url("fonts/pepmedia.ttf");}
-@font-face{font-family:"pepmessaging-help";src:url("fonts/pepmessaging-help.ttf");}
-@font-face{font-family:"pepparking";src:url("fonts/pepparking.ttf");}
-@font-face{font-family:"pepplaces";src:url("fonts/pepplaces.ttf");}
-@font-face{font-family:"pepprofile";src:url("fonts/pepprofile.ttf");}
-@font-face{font-family:"pepservices-map";src:url("fonts/pepservices-map.ttf");}
-@font-face{font-family:"peptransportation";src:url("fonts/peptransportation.ttf");}
+@font-face{font-family:"avenir55roman";src:url("fonts/avenir/avenir55roman.ttf");}
+@font-face{font-family:"avenir55romanoblique";src:url("fonts/avenir/avenir55romanoblique.ttf");}
+@font-face{font-family:"avenir85heavy";src:url("fonts/avenir/avenir85heavy.ttf");}
+@font-face{font-family:"pepactivities";src:url("fonts/pepicons/pepactivities.ttf");}
+@font-face{font-family:"pepbrands";src:url("fonts/pepicons/pepbrands.ttf");}
+@font-face{font-family:"pepcommerce";src:url("fonts/pepicons/pepcommerce.ttf");}
+@font-face{font-family:"pepdining";src:url("fonts/pepicons/pepdining.ttf");}
+@font-face{font-family:"pepicon";src:url("fonts/pepicons/pepicon.ttf");}
+@font-face{font-family:"pepinteractive";src:url("fonts/pepicons/pepinteractive.ttf");}
+@font-face{font-family:"pepmdx";src:url("fonts/pepicons/pepmdx.ttf");}
+@font-face{font-family:"pepmedia";src:url("fonts/pepicons/pepmedia.ttf");}
+@font-face{font-family:"pepmessaging-help";src:url("fonts/pepicons/pepmessaging-help.ttf");}
+@font-face{font-family:"pepparking";src:url("fonts/pepicons/pepparking.ttf");}
+@font-face{font-family:"pepplaces";src:url("fonts/pepicons/pepplaces.ttf");}
+@font-face{font-family:"pepprofile";src:url("fonts/pepicons/pepprofile.ttf");}
+@font-face{font-family:"pepservices-map";src:url("fonts/pepicons/pepservices-map.ttf");}
+@font-face{font-family:"peptransportation";src:url("fonts/pepicons/peptransportation.ttf");}
 /* End Fonts */
 
 /* Begin Nav */
