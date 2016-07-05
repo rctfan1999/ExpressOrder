@@ -5,7 +5,6 @@ var socket = io.connect();
 
 // Show Details of an Order
 function showDetails(PassOrderID) {
-	$('
 }
 
 // Request orders from DB
@@ -46,14 +45,15 @@ socket.on('GetOrders', function(order) {
 					'</fieldset>'+
 				'</form>'+
 				'<div class="button">'+
-					'<button class="linkButton" isbutton="1" href="" onClick="showDetails('+ OrderID +')">'+
-					//'<button class="linkButton" isbutton="1" href="" onClick="showDetails()">'+
+					//'<button class="linkButton" isbutton="1" href="" onClick="showDetails("'+ OrderID +'")">'+
+					'<button class="linkButton" isbutton="1" href="" onClick="showDetails()">'+
 					//'<button class="linkButton" isbutton="1" href="">'+
 						'<span class="button blue">'+
 							'<span>Details</span>'+
 						'</span>'+
 					'</button>'+
 				'</div>'+
+				//'<div id="'+ OrderID +'-details">Hello World</div>';
 			'</td>'+
 		'</tr>';
 		
