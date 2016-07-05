@@ -1,25 +1,45 @@
 // Process the order on client sidebar
 
-//var socket = io.connect();
-//console.log(socket);
-var order = [];
-/* Order Array Map */
-/* 0 - OrderID, 1 - Student ID, 2 - Student Name, 3 - entrees, 4 - fruitsVegetablesArray[0], 5 - fruitsVegetablesArray[1] or null, 6 - beverages */
+var socket = io.connect();
+console.log(socket);
 
-// When the order is confirmed, create the disabled cookie
-console.log("AMERICA WAS CALLED");
-	// Request orders from DB
-	//socket.emit('GetOrders', SchoolID);
+console.log("Script was called");
+
+// Request orders from DB
+var PassSchoolID = 5;
+socket.emit('GetOrders', PassSchoolID);
+
+// When server returns orders, display
+socket.on('GetOrders', function(order) {
 	
-	// When server returns orders, display
-	/*socket.on('GetOrders', function(SchoolID) {
-		// Set Order Selections
-		order[0] = entrees;
-		order[1] = fruitsVegetablesArray[0];
-		if (fruitsVegetablesArray[1] != null) {
-			order[2] = fruitsVegetablesArray[1];
+	console.log(order);
+	
+	for (var i = 0; i < order.length; i++) {
+		OrderID = order[i][0],
+		StudentID = order[i][1],
+		Name = order[i][2],
+		Entree = order[i][3],
+		FruitsVegetables1 = order[i][4];
+		var FruitsVegetables2;
+		if (order[i][5] != null) {
+			FruitsVegetables2 = order[i][5];
 		}
-		order[3] =  beverages;
+		var Beverages = order[i][6];
 		
-		console.log(order);
-	});*/
+		// Add to table
+		$('#orders').append('<tr>'
+			+'<td>'+ OrderID +'</td>'
+			+'<td>'+ StudentID +'</td>'
+			+'<td>'+ Name +'</td>'
+			+'<td>'
+				+'<form role="form" id="'+ OrderID +'>'
+					+'<fieldset id="Fufilled">'
+						+'<input class="pepLightRadioinput" id="Fufilled" type="radio" name="Fufilled" value="'+ OrderID +'">'
+						+'<label for="ChickenPattySandwich">'
+							+'<span><span></span></span>Fufilled'
+						+'</label>'
+				+'</form>'
+			+'</td>'
+		+'</tr>');
+	}
+});

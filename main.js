@@ -18,9 +18,17 @@ io.sockets.on('connection', function (socket) {
 	});
 	
 	// SFS Requests Orders for their School
-	socket.on('GetOrders', function(SchoolID) {
+	socket.on('GetOrders', function(PassSchoolID) {
+		var SchoolID = SchoolID;
+		var order = [];
+		
+		// Push dummy date
+		order.push(["SHS-00001-000", "24676637", "Joshua Myerson", "Chicken Patty Sandwich", "Assorted Fruit Cup", "Baby Carrots", "Chocolate Milk", "$2.50", "Fulfilled"]);
+		order.push(["SHS-00001-001", "24812309", "CJ Goodall", "Italian Sub", "Assorted Fruit Cup", "Apple", "Vanilla Milk", "$2.50", "Fulfilled"]);
+		order.push(["SHS-00001-002", "25760134", "Thomas Jefferson", "Penne Pasta w/Meat Sauce", "Assorted Fruit Cup", "Watermelon", "Orange Juice", "$2.50", "Fulfilled"]);
+		
 		// Return order array
-		socket.emit('GetOrders', orders);
+		socket.emit('GetOrders', order);
 	});
 	
 	// SFS Marks the Order as Fulfilled
