@@ -23,9 +23,9 @@ io.sockets.on('connection', function (socket) {
 		var order = [];
 		
 		// Push dummy date
-		order.push(["SHS-00001-000", "24676637", "Joshua Myerson", "Chicken Patty Sandwich", "Assorted Fruit Cup", "Baby Carrots", "Chocolate Milk", "$2.50", "Fulfilled"]);
-		order.push(["SHS-00001-001", "24812309", "CJ Goodall", "Italian Sub", "Assorted Fruit Cup", "Apple", "Vanilla Milk", "$2.50", "Fulfilled"]);
-		order.push(["SHS-00001-002", "25760134", "Thomas Jefferson", "Penne Pasta w/Meat Sauce", "Assorted Fruit Cup", "Watermelon", "Orange Juice", "$2.50", "Fulfilled"]);
+		order.push(["SHS00001000", "24676637", "Joshua Myerson", "Chicken Patty Sandwich", "Assorted Fruit Cup", "Baby Carrots", "Chocolate Milk", "$2.50", "Fulfilled"]);
+		order.push(["SHS00001001", "24812309", "CJ Goodall", "Italian Sub", "Assorted Fruit Cup", "Apple", "Vanilla Milk", "$2.50", "Fulfilled"]);
+		order.push(["SHS00001002", "25760134", "Thomas Jefferson", "Penne Pasta w/Meat Sauce", "Assorted Fruit Cup", "Watermelon", "Orange Juice", "$2.50", "Fulfilled"]);
 		
 		// Return order array
 		socket.emit('GetOrders', order);
