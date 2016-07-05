@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Cart | Express Order</title>
+	
+	<!-- Material Design fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,500,400italic,700,700italic" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	
+	<!-- GetMDL -->
+	<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+	<script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+	
+	
+	<!-- GetMDL-Select -->
+	<script src="../media/scripts/getmdl-select.min.js"></script>
+	<link rel="stylesheet" href="../media/scripts/getmdl-select.min.css">
+	
+	<!-- Custom Stylesheets and Scripts -->
+	<link href="../media/stylesheet.css" rel="stylesheet">
+	<script src="../media/scripts.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+	<div id="sidenav" class="sidenav">
+		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+		  <a href="../">Home</a>
+		  <a class="orderActive" href="../order/">Order</a>
+		  <a href="../order-placed/">My Order</a>
+		  <a href="../settings/">Settings</a>
+		  <a href="../logout/">Logout</a>
+	</div>
+	
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<span class="navbar-brand" style="font-size:30px;cursor:pointer;color:white;" onclick="openNav()"><span style="font-family:pepinteractive;">a</span></span>
+				<a class="navbar-brand" href="../"><span style="color: #87c643">Express</span> <span style="color: #fffeff;">Order</span></a>
+			</div>
+		</div>
+	</nav>
+	
+	<div class="featuredContent">
+		<h3>Order Lunch</h3>
+		<h5>Select your items from the menu below</h5>
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<!-- Begin Form -->
+			<form name="orderForm" class="orderForm" action="">
+			
+				<!-- Begin Entrees -->
+				<div class="col-md-12">
+					<div class="featuredBox">
+						<h2 class="mdl-card__title-text">
+							<span style="font-family:pepdining;">q</span> Entrees
+						</h2>
+						<div class="mdl-card__supporting-text">
+							<fieldset id="entrees"></fieldset>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Begin Fruits and Vegetables -->
+				<div class="col-md-12">
+					<div class="featuredBox">
+						<h2 class="mdl-card__title-text">
+							<span style="font-family:pepdining;">i</span> Fruits and Vegetables
+						</h2>
+						<div class="mdl-card__supporting-text">
+							<fieldset id="fruitsVegetables"></fieldset>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Begin Beverages -->
+				<div class="col-md-12">
+					<div class="featuredBox">
+						<h2 class="mdl-card__title-text">
+							<span style="font-family:pepdining;">m</span> Beverages
+						</h2>
+						<div class="mdl-card__supporting-text">
+							<fieldset id="beverages"></fieldset>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Begin Cart -->
+				<div class="col-md-12">
+					<div class="featuredBox">
+						<h2 class="mdl-card__title-text">
+							<span style="font-family:pepcommerce;">b</span> Confirm
+						</h2>
+						<div class="mdl-card__supporting-text">
+							<b>By tapping the button below you agree to the Terms and Conditions</b>
+						</div>
+						<div class="mdl-card__actions mdl-card--border">
+							<input type="submit" value="Place Order" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<div id="snackbar"></div>
+	<script>
+	$('.orderDisabled').hide();
+	var currentdate = new Date(); 
+	if (currentdate.getHours() >= 11 && currentdate.getHours() < 16) {
+		$('.orderDisabled').show();
+		$('.orderActive').hide();
+	}
+	function ordersDisabled() {
+		$('#snackbar').html("Please check back at 4 PM EST to preorder.");
+		showAlert();
+	}
+	
+	var entrees = getUrlVars()["entrees"];
+	var fruitsVegetablesArray = getUrlArrayValues("fruitsVegetables");
+	var beverages = getUrlVars()["beverages"];
+	
+	// Used for Single Selections (Radios or Text)
+	function getUrlVars() {
+		var vars = {};
+		var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+			vars[key] = value;
+		});
+		return vars;
+	}
+
+	// Used for Multiple Selections (Checkboxes)
+	function getUrlArrayValues(paramName) {
+		var values = [];
+		window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+			if (key == paramName) {
+				values.push(value);
+			}
+		});
+		return values;
+	}
+	
+	// Entrees
+	$('#entrees').html('<div class="row foodObject">'+
+			'<div class="col-xs-7 cardObject">'+
+				'<img class="img-responsive" src="../media/foods/'+ entrees +'.jpg" width="220" height="138">'+
+			'</div>'+
+		
+			'<div class="col-xs-5 cardObject">'+
+				'<b>'+ entrees +'</b><br>'+
+				'<input type="hidden" id="'+ entrees +'" name="entrees" value="'+ entrees +'">'+
+			'</div>'+
+		'</div>');
+		
+	// Fruits and Vegetables
+	for (var x = 0; x < fruitsVegetablesArray.length; x++) {
+		$('#fruitsVegetables').append('<div class="row foodObject">'+
+				'<div class="col-xs-7 cardObject">'+
+					'<img class="img-responsive" src="../media/foods/'+ fruitsVegetablesArray[x] +'.jpg" width="220" height="138">'+
+				'</div>'+
+		
+				'<div class="col-xs-5 cardObject">'+
+					'<b>'+ fruitsVegetablesArray[x] +'</b><br>'+
+					'<input type="hidden" id="'+ fruitsVegetablesArray[x] +'" name="fruitsVegetables" value="'+ fruitsVegetablesArray[x] +'">'+
+				'</div>'+
+			'</div>');
+	}
+		
+	// Beverages
+	$('#beverages').html('<div class="row foodObject">'+
+			'<div class="col-xs-7 cardObject">'+
+				'<img class="img-responsive" src="../media/foods/'+ beverages +'.jpg" width="220" height="138">'+
+			'</div>'+
+		
+			'<div class="col-xs-5 cardObject">'+
+				'<b>'+ beverages +'</b><br>'+
+				'<input type="hidden" id="'+ beverages +'" name="beverages" value="'+ beverages +'">'+
+			'</div>'+
+		'</div>');
+	</script>
+	<script src="../media/scripts/process-order.js"></script>
+	</body>
+</html>

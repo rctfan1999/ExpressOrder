@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Express Order</title>
+	
+	<!-- Material Design fonts -->
+	
+    <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,500,400italic,700,700italic" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+	<script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	
+	<link href="media/stylesheet.css" rel="stylesheet">
+	<script src="media/scripts.js"></script>		
+</head>
+<body>
+	<div id="sidenav" class="sidenav">
+		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+		  <a href="./">Home</a>
+		  <a class="orderActive" href="order/">Order</a>
+		  <a href="order-placed/">My Order</a>
+		  <a href="settings/">Settings</a>
+		  <a href="logout/">Logout</a>
+	</div>
+	
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<span class="navbar-brand" style="font-size:30px;cursor:pointer;color:white;" onclick="openNav()"><span style="font-family:pepinteractive;">a</span></span>
+				<a class="navbar-brand" href="./"><span style="color: #87c643">Express</span> <span style="color: #fffeff;">Order</span></a>
+			</div>
+		</div>
+	</nav>
+	
+	<div class="featuredContent">
+		<h3>Explore Order Ahead Options</h3>
+		<h5>Skip the lines and order your meals in advance! Tap the order button below to get started.</h5>
+	</div>
+	
+	<div class="container">
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="featuredBox">
+					<h2 class="mdl-card__title-text">
+						<span style="font-family:pepdining;">d</span> Order Lunch
+					</h2>
+					<div class="mdl-card__supporting-text">
+						<div class="row">
+							<div class="col-xs-12">
+								<img class="img-responsive" src="media/schools/shs.jpg" width="220" height="138">
+								<br>
+								<div class="alert alert-info fade in orderDisabled">
+									<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+									<span style="font-family:pepinteractive;">n</span> Please check back at 4 PM EST to preorder.
+								 </div>
+
+							</div>
+							<div class="col-sm-12">
+								<h4>Suncoast High</h4>
+								<h5>
+							</div>
+						</div>
+					 </div>
+					<div class="mdl-card__actions mdl-card--border">
+						<a href="order/" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect orderActive">
+							Order
+						</a>
+						<a onclick="ordersDisabled()" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect orderDisabled" disabled>
+							Order
+						</a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-12">
+				<div class="featuredBox">
+					<h2 class="mdl-card__title-text">
+						<span style="font-family:pepprofile;">d</span> Settings
+					</h2>
+					<div class="mdl-card__supporting-text">
+						<b>Make changes to your profile</b>
+					 </div>
+					<div class="mdl-card__actions mdl-card--border">
+						<a href="settings/payment-method/" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+							Payment Method
+						</a>
+						<a href="settings/language/" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+							Language
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="snackbar"></div>
+	<script>
+	$('.orderDisabled').hide();
+	var currentdate = new Date(); 
+	if (currentdate.getHours() >= 11 && currentdate.getHours() < 16) {
+		$('.orderDisabled').show();
+		$('.orderActive').hide();
+	}
+	function ordersDisabled() {
+		$('#snackbar').html("Please check back at 4 PM EST to preorder.");
+		showAlert();
+	}
+	// Get Order Disabled Cookie
+	function getCookie(cname) {
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0; i<ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+	}
+	
+	// Check if orders are disabled via cookie
+	var disabled = getCookie("orderDisabled");
+	console.log(disabled);
+	if (disabled) {
+		$('.orderDisabled').show();
+		$('.orderActive').hide();
+	}
+	</script>
+</body>
+</html>

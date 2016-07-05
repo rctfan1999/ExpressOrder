@@ -1,0 +1,272 @@
+/* Begin Global Styles */
+body { background-color: #e3e3e5; font-family: avenir55roman;}
+em, i { font-family: avenir55romanoblique;}
+h1, h2, h3, h4, h5, h6, p, strong, b { font-family: avenir55roman;}
+/* End Global Styles */
+
+/* Begin Fonts */
+@font-face{font-family:"avenir55roman";src:url("fonts/avenir55roman.ttf");}
+@font-face{font-family:"avenir55romanoblique";src:url("fonts/avenir55romanoblique.ttf");}
+@font-face{font-family:"avenir85heavy";src:url("fonts/avenir85heavy.ttf");}
+@font-face{font-family:"pepactivities";src:url("fonts/pepactivities.ttf");}
+@font-face{font-family:"pepbrands";src:url("fonts/pepbrands.ttf");}
+@font-face{font-family:"pepcommerce";src:url("fonts/pepcommerce.ttf");}
+@font-face{font-family:"pepdining";src:url("fonts/pepdining.ttf");}
+@font-face{font-family:"pepicon";src:url("fonts/pepicon.ttf");}
+@font-face{font-family:"pepinteractive";src:url("fonts/pepinteractive.ttf");}
+@font-face{font-family:"pepmdx";src:url("fonts/pepmdx.ttf");}
+@font-face{font-family:"pepmedia";src:url("fonts/pepmedia.ttf");}
+@font-face{font-family:"pepmessaging-help";src:url("fonts/pepmessaging-help.ttf");}
+@font-face{font-family:"pepparking";src:url("fonts/pepparking.ttf");}
+@font-face{font-family:"pepplaces";src:url("fonts/pepplaces.ttf");}
+@font-face{font-family:"pepprofile";src:url("fonts/pepprofile.ttf");}
+@font-face{font-family:"pepservices-map";src:url("fonts/pepservices-map.ttf");}
+@font-face{font-family:"peptransportation";src:url("fonts/peptransportation.ttf");}
+/* End Fonts */
+
+/* Begin Nav */
+.navbar {
+	background-color: #308b8c;
+	color: white;
+	margin-bottom: 0px;
+}
+/* End Nav */
+
+/* Begin Side Nav */
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+	background-color: #616161;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s
+}
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: #cccccc;
+}
+
+.closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px !important;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+/* End Side Nav */
+
+/* Page Content */
+.featuredContent {
+	background-color: #9fba6b;
+	text-align: center;
+	color: white;
+	padding: 5px 10px;
+}
+.featuredContent h5 {
+	font-weight: lighter;
+}
+
+.featuredBox {margin-top: 0px;}
+.featuredBox {
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	-moz-box-shadow: 0 0 4px rgba(0,0,0,0.2);
+	-webkit-box-shadow: 0 0 4px rgba(0,0,0,0.2);
+	box-shadow: 0 0 4px rgba(0,0,0,0.2);
+	background-color: #FFFFFF;
+	position: relative;
+	box-sizing: border-box;
+	padding: 0px 0px;
+}
+.featuredBox {margin: 10px 5px;}
+
+.cardObject {
+	display: inline;
+}
+
+.foodObject {
+	margin-bottom: 5px;
+}
+
+.mdl-card__title-text {
+	color: #ffffff;
+	background-color: #279ca3;
+	background-repeat: no-repeat;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+/* End Page Content */
+
+/* Begin Snack Bar */
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
+
+.show {
+    visibility: visible !important;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+/* End Snack Bar */
+
+/* Selection Radio */
+.pepLightRadioinput[type=radio]:not(old) {
+  width     : 2em;
+  margin    : 0;
+  padding   : 0;
+  font-size : 1em;
+  opacity   : 0;
+}
+
+.pepLightRadioinput[type=radio]:not(old) + label {
+  display      : inline-block;
+  margin-left  : -2em;
+  line-height  : 1.5em;
+}
+
+.pepLightRadioinput[type=radio]:not(old) + label > span {
+  display          : inline-block;
+  width            : 18px;
+  height           : 18px;
+  margin           : 0.25em 0.5em 0.25em 0.25em;
+  border           : 0.0625em solid rgb(192,192,192);
+  border-radius    : 0.25em;
+  background       : green;
+  background-image :    -moz-linear-gradient(#ffffff, #ececec);
+  background-image :     -ms-linear-gradient(#ffffff, #ececec);
+  background-image :      -o-linear-gradient(#ffffff, #ececec);
+  background-image : -webkit-linear-gradient(#ffffff, #ececec);
+  background-image :         linear-gradient(#ffffff, #ececec);
+  vertical-align   : bottom;
+}
+
+.pepLightRadioinput[type=radio]:not(old):checked + label > span {
+  background-image :    -moz-linear-gradient(#93bc5a, #6fa623);
+  background-image :     -ms-linear-gradient(#93bc5a, #6fa623);
+  background-image :      -o-linear-gradient(#93bc5a, #6fa623);
+  background-image : -webkit-linear-gradient(#93bc5a, #6fa623);
+  background-image :         linear-gradient(#93bc5a, #6fa623);
+}
+
+.pepLightRadioinput[type=radio]:not(old):checked + label > span:before{
+  content: "b";
+  font-family: 'pepmessaging-help';
+  display     : block;
+  width       : 1em;
+  color       : white;
+  font-size   : 18px;
+  line-height : 1em;
+  text-align  : center;
+  text-shadow : 0 0 0.0714em rgb(115,153,77);
+  font-weight : bold;
+}
+/* End Selection Radio */
+
+/* Begin Selection Checkbox */
+.pepLightCheckboxinput[type=checkbox]:not(old) {
+  width     : 2em;
+  margin    : 0;
+  padding   : 0;
+  font-size : 1em;
+  opacity   : 0;
+}
+
+.pepLightCheckboxinput[type=checkbox]:not(old) + label {
+  display      : inline-block;
+  margin-left  : -2em;
+  line-height  : 1.5em;
+}
+
+.pepLightCheckboxinput[type=checkbox]:not(old) + label > span {
+  display          : inline-block;
+  width            : 18px;
+  height           : 18px;
+  margin           : 0.25em 0.5em 0.25em 0.25em;
+  border           : 0.0625em solid rgb(192,192,192);
+  border-radius    : 0.25em;
+  background       : green;
+  background-image :    -moz-linear-gradient(#ffffff, #ececec);
+  background-image :     -ms-linear-gradient(#ffffff, #ececec);
+  background-image :      -o-linear-gradient(#ffffff, #ececec);
+  background-image : -webkit-linear-gradient(#ffffff, #ececec);
+  background-image :         linear-gradient(#ffffff, #ececec);
+  vertical-align   : bottom;
+}
+
+.pepLightCheckboxinput[type=checkbox]:not(old):checked + label > span {
+  background-image :    -moz-linear-gradient(#93bc5a, #6fa623);
+  background-image :     -ms-linear-gradient(#93bc5a, #6fa623);
+  background-image :      -o-linear-gradient(#93bc5a, #6fa623);
+  background-image : -webkit-linear-gradient(#93bc5a, #6fa623);
+  background-image :         linear-gradient(#93bc5a, #6fa623);
+}
+
+.pepLightCheckboxinput[type=checkbox]:not(old):checked + label > span:before{
+  content: "b";
+  font-family: 'pepmessaging-help';
+  display     : block;
+  width       : 1em;
+  color       : white;
+  font-size   : 18px;
+  line-height : 1em;
+  text-align  : center;
+  text-shadow : 0 0 0.0714em rgb(115,153,77);
+  font-weight : bold;
+}
+/* End Selection Checkbox */

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Settings | Express Order</title>
+	
+	<!-- Material Design fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,500,400italic,700,700italic" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	
+	<!-- GetMDL -->
+	<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+	<script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+	
+	
+	<!-- GetMDL-Select -->
+	<script src="../media/scripts/getmdl-select.min.js"></script>
+	<link rel="stylesheet" href="../media/scripts/getmdl-select.min.css">
+	
+	<!-- Custom Stylesheets and Scripts -->
+	<link href="../media/stylesheet.css" rel="stylesheet">
+	<script src="../media/scripts.js"></script>		
+</head>
+<body>
+	<div id="sidenav" class="sidenav">
+		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+		  <a href="../">Home</a>
+		  <a class="orderActive" href="../order/">Order</a>
+		  <a href="../order-placed/">My Order</a>
+		  <a href="../settings/">Settings</a>
+		  <a href="../logout/">Logout</a>
+	</div>
+	
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<span class="navbar-brand" style="font-size:30px;cursor:pointer;color:white;" onclick="openNav()"><span style="font-family:pepinteractive;">a</span></span>
+				<a class="navbar-brand" href="../"><span style="color: #87c643">Express</span> <span style="color: #fffeff;">Order</span></a>
+			</div>
+		</div>
+	</nav>
+	
+	<div class="featuredContent">
+		<h3>Settings</h3>
+		<h5>Help us provide the best experience by editing your information and preferences necessary.</h5>
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<!-- Begin Payment Methods -->
+			<div class="col-md-12">
+				<div class="featuredBox">
+					<h2 class="mdl-card__title-text">
+						<span style="font-family:pepprofile;">g</span> Payment Method
+					</h2>
+					<div class="mdl-card__supporting-text">
+						<b>Link or unlink your School Cash Online account.</b>
+					 </div>
+					<div class="mdl-card__actions mdl-card--border">
+						<a href="../settings/payment-method/" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+							Update Payment Method
+						</a>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Begin Language -->
+			<div class="col-md-12">
+				<div class="featuredBox">
+					<h2 class="mdl-card__title-text">
+						<span style="font-family:pepmdx;"></span> Language
+					</h2>
+					<div class="mdl-card__supporting-text">
+						<b>Set the language of your choice.</b>
+						<br>
+						<b>Your current language - <span id="currentLang">English</span></b>
+					 </div>
+					<div class="mdl-card__actions mdl-card--border">
+						<a href="../settings/language/" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+							Change Your Language
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="snackbar"></div>
+	<script>
+	$('.orderDisabled').hide();
+	var currentdate = new Date(); 
+	if (currentdate.getHours() >= 11 && currentdate.getHours() < 16) {
+		$('.orderDisabled').show();
+		$('.orderActive').hide();
+	}
+	function ordersDisabled() {
+		$('#snackbar').html("Please check back at 4 PM EST to preorder.");
+		showAlert();
+	}
+	
+	// Get Order Disabled Cookie
+	function getCookie(cname) {
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0; i<ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+	}
+	
+	// Check if orders are disabled via cookie
+	var disabled = getCookie("orderDisabled");
+	if (disabled) {
+		$('.orderDisabled').show();
+		$('.orderActive').hide();
+	}
+	</script>
+	</body>
+</html>
