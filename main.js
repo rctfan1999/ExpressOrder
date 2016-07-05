@@ -18,7 +18,7 @@ io.sockets.on('connection', function (socket) {
 	});
 	
 	// SFS Requests Orders for their School
-	socket.on('GetOrders', function(schoolID) {
+	socket.on('GetOrders', function(SchoolID) {
 		// Return order array
 		socket.emit('GetOrders', orders);
 	});
