@@ -17,7 +17,7 @@ var express = require('express'),
 		found.each(function(err, doc) {
 			assert.equal(err, null);
 			if (doc != null) {
-				console.log(doc);
+				//console.log(doc);
 			}
 		});
 	});
@@ -40,7 +40,11 @@ io.sockets.on('connection', function (socket) {
 	// When an order is recieved process it
 	socket.on('NewOrder', function(Order) {
 		// Process payment
+		
 		// Submit order to database
+		order.push(Order);
+		
+		console.log(Order);
 		
 		// If both above are good emit true to client
 		var status = true;

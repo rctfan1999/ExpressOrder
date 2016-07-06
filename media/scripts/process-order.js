@@ -1,37 +1,78 @@
-// Process the order on client sidebar
+/*! process-order.js | (c) Joshua Myerson */
 
 var socket = io.connect();
-console.log(socket);
-var order = [];
+console.log("Reached");
 
-// When the order is confirmed, create the disabled cookie
-$(".orderForm").submit(function(event) {
+$("#orderForm").submit(function(event) {
+	console.log("Reached form submission");
+	// Create order array
+	var Order = [];
 	
-	// Set Order Selections
-	order[0] = entrees;
-	order[1] = fruitsVegetablesArray[0];
-	if (fruitsVegetablesArray[1] != null) {
-		order[2] = fruitsVegetablesArray[1];
-	}
-	order[3] =  beverages;
-	//console.log(order);
+	// OrderID
+	Order[0] = getCookie("SchID") + Math.random();
 	
-	// Notify socket server
-	socket.emit('NewOrder', order);
+	// Student ID
+	Order[1] = getCookie("StuID");
 	
-	console.log(order);
+	// Student Name
+	Order[2] = getCookie("StuNme");
+	
+	// Entrées
+	Order[3] = document.getElementById("entree").value;
+	
+	// Fruits and Vegetables
+	Order[4] = document.getElementById("fruitsVegetables0").value;
+	//if(document.getElementById("fruitsVegetables1").value != null) {
+		//Order[5] = document.getElementById("fruitsVegetables1").value;
+	//} else { 
+		//Order[5] = "null";
+	//}
+	
+	// Beverage
+	Order[6] = document.getElementById("beverage").value;
+	
+	// Pice
+	Order[7] = "$2.50";
+	
+	// Dates
+	var date = new Date();
+	Order[8] = date;
+	Order[10] = date;
+	
+	// Fulfilled (defaults in DB to false)
+	Order[9] = false;
+	
+	// Ordered Today (defaults in DB to true)
+	Order[11] = true;
+	
+	console.log(Order);
+
+	// Submit to server
+	socket.emit('NewOrder', Order);
 	
 	socket.on('NewOrder', function(status) {
-		console.log(status);
-		console.log("Received");
-		/*if (status) {
-			// Disable Orders
-			document.cookie = "orderDisabled=true; path=/;";
-			
-			// Go to Order Placed page
-			event.preventDefault();
-			window.location = "http://10.254.17.169:8082/order-placed/";
-		}*/
+		// Check status returned
+		if (status) {
+			return false;
+		}
 	});
+	
+	// Handles getting cookies
+	function getCookie(cname) {
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		for(var i = 0; i < ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length,c.length);
+			}
+		}
+		return "";
+	}
+	
+	window.location.replace("../../index.html");
 	return false;
 });

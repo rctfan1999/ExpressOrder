@@ -14,6 +14,18 @@ $(document).ready(function () {
 	});
 });
 
+$('.orderDisabled').hide();
+var currentdate = new Date(); 
+if (currentdate.getHours() >= 11 && currentdate.getHours() < 16) {
+	$('.orderDisabled').show();
+	$('.orderActive').hide();
+}
+
+function ordersDisabled() {
+	$('#snackbar').html("Please check back at 4 PM EST to preorder.");
+	showAlert();
+}
+
 function showAlert() {
     var x = document.getElementById("snackbar");
     x.className = "show";

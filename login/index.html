@@ -23,7 +23,6 @@
 	<link href="../media/stylesheet.css" rel="stylesheet">
 	<script src="../media/scripts.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
-	<script src="../media/scripts/authenticate.js"></script>
 </head>
 <body>
 	
@@ -44,10 +43,10 @@
 						<span style="font-family:pepmessaging-help;">k</span> Login
 					</h2>
 					<div class="mdl-card__supporting-text">
-						<form role="form" id="loginForm">
+						<form role="form" action="" id="loginForm" name="loginForm">
 							<div class="form-group">
 								<label for="Username">Username:</label>
-								<input type="text" class="form-control" id="Username">
+								<input type="text" class="form-control" id="Username" name="Username">
 							</div>
 							<div class="form-group">
 								<label for="Password">Password:</label>
@@ -63,5 +62,6 @@
 			</div>
 		</div>
 	</div>
+	<script src="../media/scripts/authenticate.js"></script>
 </body>
 </html>
