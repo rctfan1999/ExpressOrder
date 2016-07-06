@@ -13,15 +13,8 @@ var express = require('express'),
 	
 	// Handle errors
 	assert.equal(null, err);
-		// Insert data
-		db.collection('ExpressOrder').insert({"SID":"24676637"});
-		// Count data
-		db.collection('ExpressOrder').find().count().then(function(numItems) {
-			console.log(numItems); // Use this to debug
-			callback(numItems);
-		})
-		var myCursor = db.collection('ExpressOrder').find();
-		myCursor;
+		var myCursor = db.collection('ExpressOrder').find().toArray(function(;
+		print(JSON.stringify(myCursor, null, 4));
 	});
 
 	// Global variables
