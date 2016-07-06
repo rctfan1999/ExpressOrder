@@ -1,5 +1,4 @@
-// SFS Side - Get all orders for
-// a school using the given ID
+/*! get-orders.js | (c)Joshua Myerson */
 
 var socket = io.connect();
 

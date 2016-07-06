@@ -47,7 +47,8 @@ io.sockets.on('connection', function (socket) {
 		for (var y = 0; y < order.length; y++) {
 			if(order[y][1] == PassUsername) {
 				// Return order array
-				socket.emit('MyOrder', order[y]);
+				socket.emit('GetMyOrder', order[y]);
+				console.log(order[y]);
 			}
 		}
 	});

@@ -22,7 +22,9 @@
 	
 	<!-- Custom Stylesheets and Scripts -->
 	<link href="../media/stylesheet.css" rel="stylesheet">
-	<script src="../media/scripts.js"></script>		
+	<script src="../media/scripts.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="../media/scripts/getMyOrder.js"></script>
 </head>
 <body>
 	<div id="sidenav" class="sidenav">
@@ -45,7 +47,7 @@
 	
 	<div class="featuredContent">
 		<h3>Thanks! Your order has been placed.</h3>
-		<h5>Please pickup your order at the beginning of lunch at the Express Order line</h5>
+		<h5>Please pickup your order at the beginning of lunch in the Express Order line</h5>
 	</div>
 	
 	<div class="container" id="NoOrder">
@@ -57,7 +59,7 @@
 						<span style="font-family:pepdining;">k</span> My Order
 					</h2>
 					<div class="mdl-card__supporting-text">
-						<b>You have not placed an order yet! Please visit the <a href="../order">ordering page to place an order.</a></b>
+						<b>You have not placed an order yet! Please visit the <a href="../order/index.html">ordering page to place an order.</a></b>
 					</div>
 				</div>
 			</div>
@@ -130,83 +132,6 @@
 		$('#snackbar').html("Please check back at 4 PM EST to preorder.");
 		showAlert();
 	}
-	
-	var entrees = getCookie("entrees");
-	var fruitsVegetables1 = getCookie("fruitsVegetables1");
-	var fruitsVegetables2 = getCookie("fruitsVegetables2");
-	var beverages = getCookie("beverages");
-	
-	// Create the array for fruits and vegetables
-	var fruitsVegetablesArray = [fruitsVegetables1, fruitsVegetables2];
-	
-	// Check if orders are disabled via cookie
-	var disabled = getCookie("orderDisabled");
-	if (disabled) {
-		$('.orderDisabled').show();
-		$('.orderActive').hide();
-	}
-	
-	// Get Cookie
-	function getCookie(cname) {
-		var name = cname + "=";
-		var ca = document.cookie.split(';');
-		for(var i=0; i<ca.length; i++) {
-			var c = ca[i];
-			while (c.charAt(0)==' ') {
-				c = c.substring(1);
-			}
-			if (c.indexOf(name) == 0) {
-				return c.substring(name.length, c.length);
-			}
-		}
-		return "";
-	}
-	
-	if (entrees != undefined) {
-		// Entrees
-		$('#entrees').html('<div class="row foodObject">'+
-				'<div class="col-xs-7 cardObject">'+
-					'<img class="img-responsive" src="../media/foods/'+ entrees +'.jpg" width="220" height="138">'+
-				'</div>'+
-			
-				'<div class="col-xs-5 cardObject">'+
-					'<b>'+ entrees +'</b><br>'+
-					'<input type="hidden" id="'+ entrees +'" name="entrees" value="'+ entrees +'">'+
-				'</div>'+
-			'</div>');
-			
-		// Fruits and Vegetables
-		for (var x = 0; x < fruitsVegetablesArray.length; x++) {
-			$('#fruitsVegetables').append('<div class="row foodObject">'+
-					'<div class="col-xs-7 cardObject">'+
-						'<img class="img-responsive" src="../media/foods/'+ fruitsVegetablesArray[x] +'.jpg" width="220" height="138">'+
-					'</div>'+
-			
-					'<div class="col-xs-5 cardObject">'+
-						'<b>'+ fruitsVegetablesArray[x] +'</b><br>'+
-						'<input type="hidden" id="'+ fruitsVegetablesArray[x] +'" name="fruitsVegetables" value="'+ fruitsVegetablesArray[x] +'">'+
-					'</div>'+
-				'</div>');
-		}
-			
-		// Beverages
-		$('#beverages').html('<div class="row foodObject">'+
-				'<div class="col-xs-7 cardObject">'+
-					'<img class="img-responsive" src="../media/foods/'+ beverages +'.jpg" width="220" height="138">'+
-				'</div>'+
-			
-				'<div class="col-xs-5 cardObject">'+
-					'<b>'+ beverages +'</b><br>'+
-					'<input type="hidden" id="'+ beverages +'" name="beverages" value="'+ beverages +'">'+
-				'</div>'+
-			'</div>');
-		}
-		// End if
-	else {
-		$('#OrderContent').hide();
-		$('#NoOrder').show();
-	}
-	// End else
 	</script>
 	</body>
 </html>
