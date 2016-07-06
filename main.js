@@ -8,46 +8,72 @@ var express = require('express'),
 
 	app.use(express.static(__dirname));
 	
-	// Connect to Mongo
-	MongoClient.connect('mongodb://10.254.17.115:27017/ExpressOrder', function(err, db) {
-	
-	// Handle errors
-	assert.equal(null, err);
-		var found = db.collection('ExpressOrder').find();
-		found.each(function(err, doc) {
-			assert.equal(err, null);
-			if (doc != null) {
-				//console.log(doc);
-			}
-		});
+	// Connect to Orders
+	MongoClient.connect('mongodb://10.254.17.115:27017/Users', function(err, db) {
+		// Handle errors
+		assert.equal(null, err);
+		//db.collection('Users').remove({})
 	});
-	
-	/*function print(object) {
-		console.log(object);
-	}*/
-
-	// Global variables
-	var order = [];
-	
-	// Push dummy date
-	/*order.push(["SHS00001000", "24676637", "Joshua Myerson", "Chicken Patty Sandwich", "Assorted Fruit Cup", "Baby Carrots", "Chocolate Milk", "$2.50", "0"]);
-	order.push(["SHS00001001", "24812309", "CJ Goodall", "Italian Sub", "Assorted Fruit Cup", "null", "White Milk", "$2.50", "0"]);
-	order.push(["SHS00001002", "25760134", "Thomas Jefferson", "Penne Pasta w/Meat Sauce", "Assorted Fruit Cup", "Watermelon", "Orange Juice", "$2.50", "0"]);*/
 
 // Handle Connections
 io.sockets.on('connection', function (socket) {
 	
-	// When an order is recieved process it
+	// When a new user joins
+	socket.on('UserJoined', function(Username) {
+		// Connect to Users
+		MongoClient.connect('mongodb://10.254.17.115:27017/Users', function(err, db) {
+		
+			// Handle errors
+			assert.equal(null, err);
+			
+			// Create user
+			db.collection('Users').insert(
+				{"StudentID": Username,
+				"StudentName": "Joshua Myerson",
+				"SchoolID": "5"
+				}
+			);
+			console.log("User Created");
+			
+			/*// List all StudentID's for debug purposes
+			var found = db.collection('Users').find();
+			found.each(function(err, doc) {
+				assert.equal(err, null);
+				if (doc != null) {
+					console.log(doc);
+				}
+			});*/
+			//db.close();
+		});
+		var StuName = "Joshua Myerson";
+		var SchID = "5";
+		
+		socket.emit('UserJoined', {StudentName: StuName, SchoolID: SchID});
+	});
+	
+	// When an order is received process it
 	socket.on('NewOrder', function(Order) {
 		// Process payment
 		
-		// Submit order to database
-		order = [];
-		order.push(Order);
-		
-		console.log("New Order");
-		console.log(Order);
-		console.log();
+		// Create
+		MongoClient.connect('mongodb://10.254.17.115:27017/Orders', function(err, db) {
+			db.collection('Order').insert(
+				{"OrderID": Order[0],
+				"StudentID": Order[1],
+				"StudentName": Order[2],
+				"Entree": Order[3],
+				"FruitsVegetables1": Order[4],
+				"FruitsVegetables2": Order[5],
+				"Beverage": Order[6],
+				"Price": Order[7],
+				"DateOrdered": Order[8],
+				"Fulfilled": Order[9],
+				"DateFulfilled": Order[10],
+				"OrderedToday": Order[11]
+				}
+			);
+			//db.close();
+		});
 		
 		// If both above are good emit true to client
 		var status = true;
@@ -71,6 +97,21 @@ io.sockets.on('connection', function (socket) {
 	// When a client requests to see their order
 	socket.on('GetMyOrder', function(PassUsername) {
 	
+		// Connect to Orders
+		MongoClient.connect('mongodb://10.254.17.115:27017/Orders', function(err, db) {
+		
+		// Handle errors
+		assert.equal(null, err);
+			var found = db.collection('Orders').find();
+			found.each(function(err, doc) {
+				assert.equal(err, null);
+				if (doc != null) {
+					console.log(doc);
+				}
+			});
+		});
+		db.close();
+		
 		// Search array for where Username = Student ID
 		for (var y = 0; y < order.length; y++) {
 			if(order[y][1] == PassUsername) {
@@ -88,7 +129,7 @@ io.sockets.on('connection', function (socket) {
 	});
 	
 	// When a client updates their language
-	socket.on('GetLanguage', function(username) {
+	socket.on('GetLanguage', function(Username) {
 		// Return order array
 		socket.emit('GetLanguage', status);
 	});

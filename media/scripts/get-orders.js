@@ -46,7 +46,7 @@ function setFulfilled (OrderID) {
 var PassSchoolID = 5;
 socket.emit('GetOrders', PassSchoolID);
 
-// When server returns orders, display
+/*// When server returns orders, display
 socket.on('GetOrders', function(Order) {
 	console.log(Order); // See array for debug purposes
 	
@@ -94,4 +94,4 @@ socket.on('GetOrders', function(Order) {
 		// Add to table
 		$('#orders').append(appendObject);
 	}
-});
+});*/

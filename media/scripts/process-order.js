@@ -9,7 +9,7 @@ $("#orderForm").submit(function(event) {
 	var Order = [];
 	
 	// OrderID
-	Order[0] = getCookie("SchID") + Math.random();
+	Order[0] = getCookie("SchID");
 	
 	// Student ID
 	Order[1] = getCookie("StuID");
