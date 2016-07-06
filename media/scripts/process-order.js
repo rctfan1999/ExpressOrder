@@ -3,8 +3,6 @@
 var socket = io.connect();
 console.log(socket);
 var order = [];
-/* Order Array Map */
-/* 0 - entrees, 1 - fruitsVegetablesArray[0], 2 - fruitsVegetablesArray[1] or null, 3 - beverages */
 
 // When the order is confirmed, create the disabled cookie
 $(".orderForm").submit(function(event) {

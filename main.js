@@ -32,8 +32,9 @@ io.sockets.on('connection', function (socket) {
 	});
 	
 	// SFS Marks the Order as Fulfilled
-	socket.on('SetFulfilled', function(OrderID, Username) {
-		// Return order array
+	socket.on('SetFulfilled', function(OrderID) {
+		// Update DB
+		var status = true;
 		socket.emit('SetFulfilled', status);
 	});
 	
@@ -57,4 +58,4 @@ io.sockets.on('connection', function (socket) {
 });
 
 server.listen(8082);
-console.log('Expres Order Running at 8082');
+console.log('Express Order Running at 8082');
