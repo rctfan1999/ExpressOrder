@@ -9,7 +9,7 @@ app.use(express.static(__dirname));
 io.sockets.on('connection', function (socket) {
 
 	// When an order is recieved process it
-	socket.on('NewOrder', function(order) {
+	socket.on('NewOrder', function(Order) {
 		// Process payment
 		// Submit order to database
 		// If both above are good emit true to client
@@ -39,13 +39,13 @@ io.sockets.on('connection', function (socket) {
 	});
 	
 	// When a client requests to see their order
-	socket.on('GetMyOrder', function(username) {
+	socket.on('GetMyOrder', function(Username) {
 		// Return order array
 		socket.emit('MyOrder', order);
 	});
 	
-	// When a client updates their payment email
-	socket.on('UpdatePayment', function(username, email) {
+	// When a client updates their payment pin
+	socket.on('UpdatePayment', function(Username, Pin) {
 		// Return order array
 		socket.emit('UpdatePayment', status);
 	});
