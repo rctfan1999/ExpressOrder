@@ -45,17 +45,7 @@ $("#orderForm").submit(function(event) {
 	// Ordered Today (defaults in DB to true)
 	Order[11] = true;
 	
-	console.log(Order);
-
-	// Submit to server
-	socket.emit('NewOrder', Order);
-	
-	socket.on('NewOrder', function(status) {
-		// Check status returned
-		if (status) {
-			return false;
-		}
-	});
+	console.log(Order); // Display order for debug purposes
 	
 	// Handles getting cookies
 	function getCookie(cname) {
@@ -73,6 +63,15 @@ $("#orderForm").submit(function(event) {
 		return "";
 	}
 	
-	window.location.replace("../../index.html");
-	return false;
+	// Submit to server
+	socket.emit('NewOrder', Order);
+	
+	socket.on('NewOrder', function(status) {
+		// Check status returned
+		if (status) {
+			console.log(status);
+			window.location.replace("../../index.html");
+			return false;
+		}
+	});
 });

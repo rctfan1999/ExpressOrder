@@ -30,9 +30,9 @@ var express = require('express'),
 	var order = [];
 	
 	// Push dummy date
-	order.push(["SHS00001000", "24676637", "Joshua Myerson", "Chicken Patty Sandwich", "Assorted Fruit Cup", "Baby Carrots", "Chocolate Milk", "$2.50", "0"]);
+	/*order.push(["SHS00001000", "24676637", "Joshua Myerson", "Chicken Patty Sandwich", "Assorted Fruit Cup", "Baby Carrots", "Chocolate Milk", "$2.50", "0"]);
 	order.push(["SHS00001001", "24812309", "CJ Goodall", "Italian Sub", "Assorted Fruit Cup", "null", "White Milk", "$2.50", "0"]);
-	order.push(["SHS00001002", "25760134", "Thomas Jefferson", "Penne Pasta w/Meat Sauce", "Assorted Fruit Cup", "Watermelon", "Orange Juice", "$2.50", "0"]);
+	order.push(["SHS00001002", "25760134", "Thomas Jefferson", "Penne Pasta w/Meat Sauce", "Assorted Fruit Cup", "Watermelon", "Orange Juice", "$2.50", "0"]);*/
 
 // Handle Connections
 io.sockets.on('connection', function (socket) {
@@ -42,9 +42,12 @@ io.sockets.on('connection', function (socket) {
 		// Process payment
 		
 		// Submit order to database
+		order = [];
 		order.push(Order);
 		
+		console.log("New Order");
 		console.log(Order);
+		console.log();
 		
 		// If both above are good emit true to client
 		var status = true;
