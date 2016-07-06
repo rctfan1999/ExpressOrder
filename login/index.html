@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>Express Order</title>
+    <title>Login | Express Order</title>
 	
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="../media/css/font-awesome.min.css">
@@ -22,6 +22,8 @@
 	
 	<link href="../media/stylesheet.css" rel="stylesheet">
 	<script src="../media/scripts.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="../media/scripts/authenticate.js"></script>
 </head>
 <body>
 	
@@ -42,14 +44,14 @@
 						<span style="font-family:pepmessaging-help;">k</span> Login
 					</h2>
 					<div class="mdl-card__supporting-text">
-						<form role="form">
+						<form role="form" id="loginForm">
 							<div class="form-group">
-								<label for="email">Username:</label>
-								<input type="email" class="form-control" id="email">
+								<label for="Username">Username:</label>
+								<input type="text" class="form-control" id="Username">
 							</div>
 							<div class="form-group">
-								<label for="pwd">Password:</label>
-								<input type="password" class="form-control" id="pwd">
+								<label for="Password">Password:</label>
+								<input type="password" class="form-control" id="Password">
 							</div>
 							<div class="checkbox">
 								<label><input type="checkbox"> Remember me</label>

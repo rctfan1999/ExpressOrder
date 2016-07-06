@@ -1,4 +1,4 @@
-/*! getMyOrder.js | (c)Joshua Myerson */
+/*! getMyOrder.js | (c) Joshua Myerson */
 
 var socket = io.connect();
 

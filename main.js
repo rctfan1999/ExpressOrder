@@ -13,9 +13,18 @@ var express = require('express'),
 	
 	// Handle errors
 	assert.equal(null, err);
-		var myCursor = db.collection('ExpressOrder').find().toArray(function(;
-		print(JSON.stringify(myCursor, null, 4));
+		var found = db.collection('ExpressOrder').find();
+		found.each(function(err, doc) {
+			assert.equal(err, null);
+			if (doc != null) {
+				console.log(doc);
+			}
+		});
 	});
+	
+	/*function print(object) {
+		console.log(object);
+	}*/
 
 	// Global variables
 	var order = [];
