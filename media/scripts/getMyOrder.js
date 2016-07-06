@@ -3,7 +3,7 @@
 var socket = io.connect();
 
 // Request student's orders
-var Username = "24676637";
+var Username = "24812309";
 socket.emit('GetMyOrder', Username);
 
 // When server returns the order, display
@@ -16,10 +16,12 @@ socket.on('GetMyOrder', function(Order) {
 	// Add fruits and vegetables
 	var fruitsVegetablesArray = [];
 	fruitsVegetablesArray.push([Order[4]]); // First mandatory selection
-	if (Order[5] !== null) { // Second optional selection (can be null)
+	if (Order[5] !== "null") { // Second optional selection (can be null)
 		fruitsVegetablesArray.push([Order[5]]);
 	}
 	var Beverage = Order[6];
+	
+	console.log(Order);
 	
 	$('#entrees').html('<div class="row foodObject">'+
 		'<div class="col-xs-7 cardObject">'+

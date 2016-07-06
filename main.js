@@ -2,16 +2,34 @@ var express = require('express'),
 	app = express(),
 	server = require('http').createServer(app),
 	io = require('socket.io').listen(server),
-	globals = require('globals');
+	globals = require('globals'),
+	MongoClient = require('mongodb').MongoClient,
+	assert = require('assert');
 
 	app.use(express.static(__dirname));
+	
+	// Connect to Mongo
+	MongoClient.connect('mongodb://10.254.17.115:27017/ExpressOrder', function(err, db) {
+	
+	// Handle errors
+	assert.equal(null, err);
+		// Insert data
+		db.collection('ExpressOrder').insert({"SID":"24676637"});
+		// Count data
+		db.collection('ExpressOrder').find().count().then(function(numItems) {
+			console.log(numItems); // Use this to debug
+			callback(numItems);
+		})
+		var found = db.collection('ExpressOrder').find();
+			console.log(found); // Use this to debug
+	});
 
 	// Global variables
 	var order = [];
 	
 	// Push dummy date
 	order.push(["SHS00001000", "24676637", "Joshua Myerson", "Chicken Patty Sandwich", "Assorted Fruit Cup", "Baby Carrots", "Chocolate Milk", "$2.50", "0"]);
-	order.push(["SHS00001001", "24812309", "CJ Goodall", "Italian Sub", "Assorted Fruit Cup", "Apple", "Vanilla Milk", "$2.50", "0"]);
+	order.push(["SHS00001001", "24812309", "CJ Goodall", "Italian Sub", "Assorted Fruit Cup", "null", "White Milk", "$2.50", "0"]);
 	order.push(["SHS00001002", "25760134", "Thomas Jefferson", "Penne Pasta w/Meat Sauce", "Assorted Fruit Cup", "Watermelon", "Orange Juice", "$2.50", "0"]);
 
 // Handle Connections
@@ -21,6 +39,7 @@ io.sockets.on('connection', function (socket) {
 	socket.on('NewOrder', function(Order) {
 		// Process payment
 		// Submit order to database
+		
 		// If both above are good emit true to client
 		var status = true;
 		socket.emit('NewOrder', status);
