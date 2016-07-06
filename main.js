@@ -20,8 +20,8 @@ var express = require('express'),
 			console.log(numItems); // Use this to debug
 			callback(numItems);
 		})
-		var found = db.collection('ExpressOrder').find();
-			console.log(found); // Use this to debug
+		var myCursor = db.collection('ExpressOrder').find();
+		myCursor;
 	});
 
 	// Global variables
