@@ -5,24 +5,29 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>Order Lunch | Express Order</title>
-	
+	<link rel="apple-touch-icon" sizes="180x180" href="../media/favicons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" href="../media/favicons/favicon.ico">
+	<link rel="manifest" href="../media/favicons/manifest.json">
+	<link rel="mask-icon" href="../media/favicons/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="theme-color" content="#ffffff">
+
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="../media/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../media/css/bootstrap.min.css">
 	<script src="../media/scripts/jquery.min.js"></script>
 	<script src="../media/scripts/bootstrap.min.js"></script>
-	
+
 	<!-- GetMDL -->
 	<link rel="stylesheet" href="../media/css/material.indigo-pink.min.css">
 	<script defer src="../media/scripts/material.min.js"></script>
-	
+
 	<!-- GetMDL-Select -->
 	<script src="../media/scripts/getmdl-select.min.js"></script>
 	<link rel="stylesheet" href="../media/scripts/getmdl-select.min.css">
-	
+
 	<!-- Custom Stylesheets and Scripts -->
 	<link href="../media/stylesheet.css" rel="stylesheet">
-	<script src="../media/scripts.js"></script>		
+	<script src="../media/universalScripts.js"></script>
 </head>
 <body>
 	<div id="sidenav" class="sidenav">
@@ -33,7 +38,7 @@
 		  <a href="../settings/index.html">Settings</a>
 		  <a href="../logout/index.html">Logout</a>
 	</div>
-	
+
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -42,17 +47,17 @@
 			</div>
 		</div>
 	</nav>
-	
+
 	<div class="featuredContent">
 		<h3>Order Lunch</h3>
 		<h5>Select your items from the menu below</h5>
 	</div>
-	
+
 	<div class="container">
 		<div class="row">
 			<!-- Begin Form -->
-			<form name="orderForm" action="../cart/">
-			
+			<form name="orderForm" id="orderForm" action="" role="form">
+
 				<!-- Begin Entrees -->
 				<div class="col-md-12">
 					<div class="featuredBox">
@@ -65,7 +70,7 @@
 									<div class="col-xs-7 cardObject">
 										<img class="img-responsive" src="../media/foods/ChickenPattySandwich.jpg" width="220" height="138">
 									</div>
-									
+
 									<div class="col-xs-5 cardObject">
 										<b>Chicken Patty Sandwich</b><br>
 										<input class="pepLightRadioinput" id="ChickenPattySandwich" type="radio" name="entrees" value="Chicken Patty Sandwich">
@@ -74,12 +79,12 @@
 										</label>
 									</div>
 								</div>
-								
+
 								<div class="row foodObject">
 									<div class="col-xs-7 cardObject">
 										<img class="img-responsive" src="../media/foods/ItalianSub.jpg" width="220" height="138">
 									</div>
-									
+
 									<div class="col-xs-5 cardObject">
 										<b>Italian Sub</b><br>
 										<input class="pepLightRadioinput" id="ItalianSub" type="radio" name="entrees" value="Italian Sub">
@@ -88,12 +93,12 @@
 										</label>
 									</div>
 								</div>
-								
+
 								<div class="row foodObject">
 									<div class="col-xs-7 cardObject">
 										<img class="img-responsive" src="../media/foods/PennePastaWithMeatSauce.jpg" width="220" height="138">
 									</div>
-									
+
 									<div class="col-xs-5 cardObject">
 										<b>Penne Pasta With Meat Sauce</b><br>
 										<input class="pepLightRadioinput" id="PennePastaWithMeatSauce" type="radio" name="entrees" value="Penne Pasta With Meat Sauce">
@@ -106,7 +111,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<!-- Begin Fruits and Vegetables -->
 				<div class="col-md-12">
 					<div class="featuredBox">
@@ -119,7 +124,7 @@
 									<div class="col-xs-7 cardObject">
 										<img class="img-responsive" src="../media/foods/BabyCarrots.jpg" width="220" height="138">
 									</div>
-									
+
 									<div class="col-xs-5 cardObject">
 										<b>Fresh Baby Carrots</b><br>
 										<input class="pepLightCheckboxinput" id="BabyCarrots" type="checkbox" name="fruitsVegetables" value="Baby Carrots">
@@ -128,12 +133,12 @@
 										</label>
 									</div>
 								</div>
-								
+
 								<div class="row foodObject">
 									<div class="col-xs-7 cardObject">
 										<img class="img-responsive" src="../media/foods/AssortedFruitCup.jpg" width="220" height="138">
 									</div>
-									
+
 									<div class="col-xs-5 cardObject">
 										<b>Assorted Fruit Cup</b><br>
 										<input class="pepLightCheckboxinput" id="AssortedFruitCup" type="checkbox" name="fruitsVegetables" value="Assorted Fruit Cup">
@@ -142,12 +147,12 @@
 										</label>
 									</div>
 								</div>
-								
+
 								<div class="row foodObject">
 									<div class="col-xs-7 cardObject">
 										<img class="img-responsive" src="../media/foods/AssortedFruit.jpg" width="220" height="138">
 									</div>
-									
+
 									<div class="col-xs-5 cardObject">
 										<b>Assorted Fresh Fruit</b><br>
 										<input class="pepLightCheckboxinput" id="AssortedFruit" type="checkbox" name="fruitsVegetables" value="Assorted Fruit">
@@ -160,7 +165,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<!-- Begin Beverages -->
 				<div class="col-md-12">
 					<div class="featuredBox">
@@ -173,7 +178,7 @@
 									<div class="col-xs-7 cardObject">
 										<img class="img-responsive" src="../media/foods/WhiteMilk.jpg" width="220" height="138">
 									</div>
-									
+
 									<div class="col-xs-5 cardObject">
 										<b>White Milk</b><br>
 										<input class="pepLightRadioinput" id="WhiteMilk" type="radio" name="beverages" value="White Milk">
@@ -182,12 +187,12 @@
 										</label>
 									</div>
 								</div>
-								
+
 								<div class="row foodObject">
 									<div class="col-xs-7 cardObject">
 										<img class="img-responsive" src="../media/foods/ChocolateMilk.jpg" width="220" height="138">
 									</div>
-									
+
 									<div class="col-xs-5 cardObject">
 										<b>Chocolate Milk</b><br>
 										<input class="pepLightRadioinput" id="ChocolateMilk" type="radio" name="beverages" value="Chocolate Milk">
@@ -196,12 +201,12 @@
 										</label>
 									</div>
 								</div>
-								
+
 								<div class="row foodObject">
 									<div class="col-xs-7 cardObject">
 										<img class="img-responsive" src="../media/foods/StrawberryMilk.jpg" width="220" height="138">
 									</div>
-									
+
 									<div class="col-xs-5 cardObject">
 										<b>Strawberry Milk</b><br>
 										<input class="pepLightRadioinput" id="StrawberryMilk" type="radio" name="beverages" value="Strawberry Milk">
@@ -210,12 +215,12 @@
 										</label>
 									</div>
 								</div>
-								
+
 								<div class="row foodObject">
 									<div class="col-xs-7 cardObject">
 										<img class="img-responsive" src="../media/foods/OrangeJuice.jpg" width="220" height="138">
 									</div>
-									
+
 									<div class="col-xs-5 cardObject">
 										<b>Orange Juice</b><br>
 										<input class="pepLightRadioinput" id="OrangeJuice" type="radio" name="beverages" value="Orange Juice">
@@ -224,12 +229,12 @@
 										</label>
 									</div>
 								</div>
-								
+
 								<div class="row foodObject">
 									<div class="col-xs-7 cardObject">
 										<img class="img-responsive" src="../media/foods/FruitPunch.jpg" width="220" height="138">
 									</div>
-									
+
 									<div class="col-xs-5 cardObject">
 										<b>Fruit Punch</b><br>
 										<input class="pepLightRadioinput" id="FruitPunch" type="radio" name="beverages" value="Fruit Punch">
@@ -238,12 +243,12 @@
 										</label>
 									</div>
 								</div>
-								
+
 								<div class="row foodObject">
 									<div class="col-xs-7 cardObject">
 										<img class="img-responsive" src="../media/foods/GrapeJuice.jpg" width="220" height="138">
 									</div>
-									
+
 									<div class="col-xs-5 cardObject">
 										<b>Grape Juice</b><br>
 										<input class="pepLightRadioinput" id="GrapeJuice" type="radio" name="beverages" value="Grape Juice">
@@ -256,7 +261,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<!-- Begin Cart -->
 				<div class="col-md-12">
 					<div class="featuredBox">
@@ -267,26 +272,15 @@
 							<b>You will review your selection on the next page.</b>
 						</div>
 						<div class="mdl-card__actions mdl-card--border">
-							<input type="submit" value="Checkout" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+							<button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Checkout</button>
 						</div>
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
-	
+
 	<div id="snackbar"></div>
-	<script>
-	$('.orderDisabled').hide();
-	var currentdate = new Date(); 
-	if (currentdate.getHours() >= 11 && currentdate.getHours() < 16) {
-		$('.orderDisabled').show();
-		$('.orderActive').hide();
-	}
-	function ordersDisabled() {
-		$('#snackbar').html("Please check back at 4 PM EST to preorder.");
-		showAlert();
-	}
-	</script>
+	<script src="../media/scripts/createCart.js"></script>
 	</body>
 </html>

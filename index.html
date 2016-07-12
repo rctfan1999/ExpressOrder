@@ -5,24 +5,29 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>Express Order</title>
-	
+	<link rel="apple-touch-icon" sizes="180x180" href="./media/favicons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" href="./media/favicons/favicon.ico">
+	<link rel="manifest" href="./media/favicons/manifest.json">
+	<link rel="mask-icon" href="./media/favicons/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="theme-color" content="#ffffff">
+
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="./media/css/font-awesome.min.css">
 	<link rel="stylesheet" href="./media/css/bootstrap.min.css">
 	<script src="./media/scripts/jquery.min.js"></script>
 	<script src="./media/scripts/bootstrap.min.js"></script>
-	
+
 	<!-- GetMDL -->
 	<link rel="stylesheet" href="./media/css/material.indigo-pink.min.css">
 	<script defer src="./media/scripts/material.min.js"></script>
-	
+
 	<!-- GetMDL-Select -->
 	<script src="./media/scripts/getmdl-select.min.js"></script>
 	<link rel="stylesheet" href="./media/scripts/getmdl-select.min.css">
-	
+
 	<!-- Custom Stylesheets and Scripts -->
 	<link href="./media/stylesheet.css" rel="stylesheet">
-	<script src="./media/scripts.js"></script>		
+          <script src="./media/universalScripts.js"></script>
 </head>
 <body>
 	<div id="sidenav" class="sidenav">
@@ -33,7 +38,7 @@
 		  <a href="settings/index.html">Settings</a>
 		  <a href="logout/index.html">Logout</a>
 	</div>
-	
+
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -47,9 +52,9 @@
 		<h3>Explore Order Ahead Options</h3>
 		<h5>Skip the lines and order your meals in advance! Tap the order button below to get started.</h5>
 	</div>
-	
+
 	<div class="container">
-		
+
 		<div class="row">
 			<div class="col-md-12">
 				<div class="featuredBox">
@@ -61,8 +66,7 @@
 							<div class="col-xs-12">
 								<img class="img-responsive" src="media/schools/shs.jpg" width="220" height="138">
 								<br>
-								<div class="alert alert-info fade in orderDisabled">
-									<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+								<div class="orderDisabled">
 									<span style="font-family:pepinteractive;">n</span> Please check back at 4 PM EST to preorder.
 								 </div>
 
@@ -74,16 +78,11 @@
 						</div>
 					 </div>
 					<div class="mdl-card__actions mdl-card--border">
-						<a href="order/" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect orderActive">
-							Order
-						</a>
-						<a onclick="ordersDisabled()" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect orderDisabled" disabled>
-							Order
-						</a>
+						<button onclick="window.location.replace('order/index.html');" id="orderActiveBtn" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Order</button>
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="col-md-12">
 				<div class="featuredBox">
 					<h2 class="mdl-card__title-text">
@@ -96,50 +95,16 @@
 						<a href="settings/payment-method/index.html" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
 							Payment Method
 						</a>
-						<a href="settings/language/index.html" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+						<!--<a href="settings/language/index.html" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
 							Language
-						</a>
+						</a>-->
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<div id="snackbar"></div>
-	<script>
-	$('.orderDisabled').hide();
-	var currentdate = new Date(); 
-	if (currentdate.getHours() >= 11 && currentdate.getHours() < 16) {
-		$('.orderDisabled').show();
-		$('.orderActive').hide();
-	}
-	function ordersDisabled() {
-		$('#snackbar').html("Please check back at 4 PM EST to preorder.");
-		showAlert();
-	}
-	// Get Order Disabled Cookie
-	function getCookie(cname) {
-		var name = cname + "=";
-		var ca = document.cookie.split(';');
-		for(var i=0; i<ca.length; i++) {
-			var c = ca[i];
-			while (c.charAt(0)==' ') {
-				c = c.substring(1);
-			}
-			if (c.indexOf(name) == 0) {
-				return c.substring(name.length, c.length);
-			}
-		}
-		return "";
-	}
-	
-	// Check if orders are disabled via cookie
-	var disabled = getCookie("orderDisabled");
-	console.log(disabled);
-	if (disabled) {
-		$('.orderDisabled').show();
-		$('.orderActive').hide();
-	}
-	</script>
+
 </body>
 </html>

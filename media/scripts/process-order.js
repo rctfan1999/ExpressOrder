@@ -1,77 +1,84 @@
 /*! process-order.js | (c) Joshua Myerson */
 
 var socket = io.connect();
-console.log("Reached");
 
 $("#orderForm").submit(function(event) {
-	console.log("Reached form submission");
 	// Create order array
 	var Order = [];
+	console.log("Test");
+	// Get School ID from cookie
+	var SchoolID = localStorage.getItem("SchID");
 	
-	// OrderID
-	Order[0] = getCookie("SchID");
+	// Generate OrderID
+	socket.emit('GenerateOrderID', SchoolID);
 	
-	// Student ID
-	Order[1] = getCookie("StuID");
-	
-	// Student Name
-	Order[2] = getCookie("StuNme");
-	
-	// Entrées
-	Order[3] = document.getElementById("entree").value;
-	
-	// Fruits and Vegetables
-	Order[4] = document.getElementById("fruitsVegetables0").value;
-	//if(document.getElementById("fruitsVegetables1").value != null) {
-		//Order[5] = document.getElementById("fruitsVegetables1").value;
-	//} else { 
-		//Order[5] = "null";
-	//}
-	
-	// Beverage
-	Order[6] = document.getElementById("beverage").value;
-	
-	// Pice
-	Order[7] = "$2.50";
-	
-	// Dates
-	var date = new Date();
-	Order[8] = date;
-	Order[10] = date;
-	
-	// Fulfilled (defaults in DB to false)
-	Order[9] = false;
-	
-	// Ordered Today (defaults in DB to true)
-	Order[11] = true;
-	
-	console.log(Order); // Display order for debug purposes
-	
-	// Handles getting cookies
-	function getCookie(cname) {
-		var name = cname + "=";
-		var ca = document.cookie.split(';');
-		for(var i = 0; i < ca.length; i++) {
-			var c = ca[i];
-			while (c.charAt(0)==' ') {
-				c = c.substring(1);
-			}
-			if (c.indexOf(name) == 0) {
-				return c.substring(name.length,c.length);
-			}
+	socket.on('GenerateOrderID', function(GeneratedOrderID) {
+		Order[0] = String(GeneratedOrderID);
+		
+		// Student ID
+		Order[1] = localStorage.getItem("StuID");
+		
+		// Student Name
+		Order[2] = localStorage.getItem("StuNme");
+		
+		// School ID
+		Order[3] = SchoolID;
+		
+		// Entrées
+		Order[4] = document.getElementById("entree").value;
+		
+		// Fruits and Vegetables
+		Order[5] = document.getElementById("fruitsVegetables0").value;
+		if($('#fruitsVegetables1').length !== 0) {
+			Order[6] = document.getElementById("fruitsVegetables1").value;
+		} else { 
+			Order[6] = "null";
 		}
-		return "";
-	}
-	
-	// Submit to server
-	socket.emit('NewOrder', Order);
-	
-	socket.on('NewOrder', function(status) {
-		// Check status returned
-		if (status) {
-			console.log(status);
-			window.location.replace("../../index.html");
-			return false;
-		}
+		
+		// Beverage
+		Order[7] = document.getElementById("beverage").value;
+		
+		// We now need to clear all the temp localStorage variables related to the order
+		localStorage.removeItem("Entree");
+		localStorage.removeItem("FruitsVegetables");
+		localStorage.removeItem("FruitsVegetables0");
+		localStorage.removeItem("FruitsVegetables1");
+		localStorage.removeItem("Beverage");
+		
+		// Price
+		Order[8] = "$2.50";
+		
+		// Dates
+		var date = new Date();
+		Order[9] = date;
+		Order[11] = date;
+		
+		// Fulfilled (defaults in DB to false)
+		Order[10] = false;
+		
+		// Ordered Today (defaults in DB to true)
+		Order[12] = true;
+		
+		//console.log(Order); // Display order for debug purposes
+		
+		// Submit to server
+		socket.emit('NewOrder', Order);
+		
+		socket.on('NewOrder', function(status) {
+			// Check status returned
+			if (status) {
+				var date = new Date();
+				var expire = new Date();
+				
+				// Create a OrderDisabled localStorage object
+				localStorage.setItem("OrderDisabled", true);
+				
+				// Return to the home screen
+				window.location.replace("../../index.html");
+				return false;
+			}
+		});
+		return false;
 	});
+	return false;
 });

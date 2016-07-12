@@ -5,6 +5,11 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>Logout | Express Order</title>
+	<link rel="apple-touch-icon" sizes="180x180" href="../media/favicons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" href="../media/favicons/favicon.ico">
+	<link rel="manifest" href="../media/favicons/manifest.json">
+	<link rel="mask-icon" href="../media/favicons/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="theme-color" content="#ffffff">
 	
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="../media/css/font-awesome.min.css">
@@ -21,7 +26,6 @@
 	<link rel="stylesheet" href="../media/scripts/getmdl-select.min.css">
 	
 	<link href="../media/stylesheet.css" rel="stylesheet">
-	<script src="../media/scripts.js"></script>		
 </head>
 <body>
 	
@@ -42,11 +46,17 @@
 						<span style="font-family:pepmessaging-help;">k</span> Logout
 					</h2>
 					<div class="mdl-card__supporting-text">
-						<h3>This is not a page with text, this page is only a processing page.</h3>
 					 </div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+		localStorage.removeItem("OrderDisabled");
+		localStorage.removeItem("SchID");
+		localStorage.removeItem("StuID");
+		localStorage.removeItem("StuNme");
+		window.location.replace("../login/index.html");
+	</script>
 </body>
 </html>

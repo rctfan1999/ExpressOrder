@@ -8,71 +8,175 @@ var express = require('express'),
 
 	app.use(express.static(__dirname));
 	
-	// Connect to Orders
-	MongoClient.connect('mongodb://10.254.17.115:27017/Users', function(err, db) {
-		// Handle errors
-		assert.equal(null, err);
-		//db.collection('Users').remove({})
-	});
-
 // Handle Connections
 io.sockets.on('connection', function (socket) {
 	
+	socket.on('EmptyTables', function(PassSchoolID) {
+		MongoClient.connect('mongodb://10.254.17.115:27017/Orders', function(err, db) {
+			// Handle errors
+			assert.equal(null, err);
+			db.collection('Orders').remove();
+			console.log("Orders table emptied");
+			
+			db.collection('Orders').insert(
+				{"OrderID": PassSchoolID + "0000000000",
+				"StudentID": "00000000",
+				"StudentName": "IT Enterprise Applications",
+				"SchoolID": String(PassSchoolID),
+				"Entree": "NA",
+				"FruitsVegetables1": "NA",
+				"FruitsVegetables2": "NA",
+				"Beverage": "NA",
+				"Price": "NA",
+				"DateOrdered": "NA",
+				"Fulfilled": true,
+				"DateFulfilled": "NA",
+				"OrderedToday": true});
+			console.log("School Created");
+			
+			var found = db.collection('Orders').find();
+			found.each(function(err, doc) {
+				assert.equal(err, null);
+				if (doc != null) {
+					console.log(doc);
+				}
+			});
+		});
+		MongoClient.connect('mongodb://10.254.17.115:27017/Users', function(err, db) {
+			// Handle errors
+			assert.equal(null, err);
+			db.collection('Users').remove();
+			console.log("Users table emptied");
+		});
+	});
+	
 	// When a new user joins
-	socket.on('UserJoined', function(Username) {
+	socket.on('NewUser', function(Username) {
 		// Connect to Users
 		MongoClient.connect('mongodb://10.254.17.115:27017/Users', function(err, db) {
 		
 			// Handle errors
 			assert.equal(null, err);
 			
-			// Create user
-			db.collection('Users').insert(
-				{"StudentID": Username,
-				"StudentName": "Joshua Myerson",
-				"SchoolID": "5"
-				}
-			);
-			console.log("User Created");
+			// Here we would pull user info from AD
+			/*! Temp switch for debug */
+			var StuName;
+			switch (Username) {
+				case "1":
+					StuName = "Joshua Myerson";
+					break;
+				case "2":
+					StuName = "Clyde Goodall";
+					break;
+				case "3":
+					StuName = "Angel Turpin";
+					break;
+				default:
+					StuName = "Please contact IT Enterprise Applications";
+					break;
+			}
+			var SchID = "5";
 			
-			/*// List all StudentID's for debug purposes
-			var found = db.collection('Users').find();
-			found.each(function(err, doc) {
-				assert.equal(err, null);
-				if (doc != null) {
-					console.log(doc);
-				}
-			});*/
-			//db.close();
+			// Create user
+			db.collection('Users').insert({
+				"StudentID": Username,
+				"StudentName": StuName,
+				"SchoolID": SchID,
+				"OrderedToday": "false"
+			});
+			db.close();
+			console.log("A new student has joined: " + Username);
+			socket.emit('NewUser', {StudentName: StuName, SchoolID: SchID});
 		});
-		var StuName = "Joshua Myerson";
-		var SchID = "5";
+	});
+	
+	// When a client needs meta data on user stored in our database
+	socket.on('GetUserMeta', function(PassUsername) {
+	
+		// Connect to Orders
+		MongoClient.connect('mongodb://10.254.17.115:27017/Users', function(err, db) {
+			// Handle errors
+			assert.equal(null, err);
+			console.log("Requested information for: " + PassUsername);
+			var found = db.collection('Users').find({StudentID:PassUsername}).forEach(function (result) {
+				socket.emit('GetUserMeta', {
+				"SchoolID": result.SchoolID,
+				"StudentName": result.StudentName,
+				"OrderedToday": result.OrderedToday
+				});
+			});
+		});
+	});
+	
+	// When we need to see if a user exists in our database
+	socket.on('CheckUser', function(PassUsername) {
+		MongoClient.connect('mongodb://10.254.17.115:27017/Users', function(err, db) {
+			// Handle errors
+			assert.equal(null, err);
+			var count;
+			db.collection('Users').find({StudentID: PassUsername}).toArray(function(err,documents) {
+				count = documents.length;
+				console.log("User checker called - " + PassUsername + " was found " + count + " times");
+				socket.emit("CheckUser", count);
+			});
+			db.close;
+		});
+	});
+	
+	// Used when we need to generate a new OrderID
+	socket.on('GenerateOrderID', function(PassSchoolID) {
 		
-		socket.emit('UserJoined', {StudentName: StuName, SchoolID: SchID});
+		// Use a findOne in descending order
+		MongoClient.connect('mongodb://10.254.17.115:27017/Orders', function(err, db) {
+			// Handle errors
+			assert.equal(null, err);
+			db.collection('Orders').find({SchoolID: PassSchoolID}).sort({OrderID: -1}).limit(1).forEach(function (result) {	
+				var GeneratedOrderID = parseInt(result.OrderID);
+				GeneratedOrderID++;
+				
+				// Return to client
+				socket.emit('GenerateOrderID', GeneratedOrderID);
+			});
+		});
 	});
 	
 	// When an order is received process it
 	socket.on('NewOrder', function(Order) {
 		// Process payment
+		/*! Payment processing script */
 		
-		// Create
+		// Send order to database
 		MongoClient.connect('mongodb://10.254.17.115:27017/Orders', function(err, db) {
-			db.collection('Order').insert(
-				{"OrderID": Order[0],
+			console.log("New order received: " + Order);
+			db.collection('Orders').insert(
+				{
+				"OrderID": Order[0],
 				"StudentID": Order[1],
 				"StudentName": Order[2],
-				"Entree": Order[3],
-				"FruitsVegetables1": Order[4],
-				"FruitsVegetables2": Order[5],
-				"Beverage": Order[6],
-				"Price": Order[7],
-				"DateOrdered": Order[8],
-				"Fulfilled": Order[9],
-				"DateFulfilled": Order[10],
-				"OrderedToday": Order[11]
+				"SchoolID": Order[3],
+				"Entree": Order[4],
+				"FruitsVegetables1": Order[5],
+				"FruitsVegetables2": Order[6],
+				"Beverage": Order[7],
+				"Price": Order[8],
+				"DateOrdered": Order[9],
+				"Fulfilled": Order[10],
+				"DateFulfilled": Order[11],
+				"OrderedToday": Order[12]
 				}
 			);
-			//db.close();
+		});
+		
+		// Update last ordered time
+		MongoClient.connect('mongodb://10.254.17.115:27017/Users', function(err, db) {
+		
+			// Handle errors
+			assert.equal(null, err);
+			
+			// Create user
+			db.collection('Users').update({StudentID: Order[1]}, {$set: {OrderedToday: true}}, false, true);
+			console.log("Status change on " + Order[1] + " - Updated OrderedToday (true)");
+			db.close();
 		});
 		
 		// If both above are good emit true to client
@@ -82,14 +186,45 @@ io.sockets.on('connection', function (socket) {
 	
 	// SFS Requests Orders for their School
 	socket.on('GetOrders', function(PassSchoolID) {
-		
-		// Return order array
-		socket.emit('GetOrders', order);
+		// Connect to Orders
+		MongoClient.connect('mongodb://10.254.17.115:27017/Orders', function(err, db) {
+			// Handle errors
+			assert.equal(null, err);
+			
+			db.collection('Orders').find({Fulfilled: false}).forEach(function (result) {
+				socket.emit('GetOrders', {
+				"OrderID": result.OrderID,
+				"StudentID": result.StudentID,
+				"StudentName": result.StudentName,
+				"SchoolID": result.SchoolID,
+				"Entree": result.Entree,
+				"FruitsVegetables1": result.FruitsVegetables1,
+				"FruitsVegetables2": result.FruitsVegetables2,
+				"Beverage": result.Beverage,
+				"Price": result.Price,
+				"DateOrdered": result.DateOrdered,
+				"Fulfilled": result.Fulfilled,
+				"DateFulfilled": result.DateFulfilled,
+				"OrderedToday": result.OrderedToday
+				});
+			});
+		});
 	});
 	
 	// SFS Marks the Order as Fulfilled
-	socket.on('SetFulfilled', function(OrderID) {
+	socket.on('SetFulfilled', function(PassOrderID) {
 		// Update DB
+		MongoClient.connect('mongodb://10.254.17.115:27017/Orders', function(err, db) {
+		
+			// Handle errors
+			assert.equal(null, err);
+			
+			// Create user
+			db.collection('Orders').update({OrderID: PassOrderID}, {$set: {Fulfilled: true}}, false, true);
+			console.log("Status change on " + PassOrderID + " - Fulfilled: true");
+			db.close();
+		});
+		
 		var status = true;
 		socket.emit('SetFulfilled', status);
 	});
@@ -99,38 +234,36 @@ io.sockets.on('connection', function (socket) {
 	
 		// Connect to Orders
 		MongoClient.connect('mongodb://10.254.17.115:27017/Orders', function(err, db) {
-		
-		// Handle errors
-		assert.equal(null, err);
-			var found = db.collection('Orders').find();
-			found.each(function(err, doc) {
-				assert.equal(err, null);
-				if (doc != null) {
-					console.log(doc);
-				}
+			// Handle errors
+			assert.equal(null, err);
+			
+			var found = db.collection('Orders').find({StudentID:PassUserna
+			me, Fulfilled: false}).forEach(function (result) {
+				socket.emit('GetMyOrder', {
+				"OrderID": result.OrderID,
+				"StudentID": result.StudentID,
+				"StudentName": result.StudentName,
+				"Entree": result.Entree,
+				"FruitsVegetables1": result.FruitsVegetables1,
+				"FruitsVegetables2": result.FruitsVegetables2,
+				"Beverage": result.Beverage,
+				"Price": result.Price,
+				"DateOrdered": result.DateOrdered,
+				"Fulfilled": result.Fulfilled,
+				"DateFulfilled": result.DateFulfilled,
+				"OrderedToday": result.OrderedToday
+				});
 			});
 		});
-		db.close();
-		
-		// Search array for where Username = Student ID
-		for (var y = 0; y < order.length; y++) {
-			if(order[y][1] == PassUsername) {
-				// Return order array
-				socket.emit('GetMyOrder', order[y]);
-				console.log(order[y]);
-			}
-		}
 	});
 	
 	// When a client updates their payment pin
 	socket.on('UpdatePayment', function(Username, Pin) {
-		// Return order array
 		socket.emit('UpdatePayment', status);
 	});
 	
 	// When a client updates their language
 	socket.on('GetLanguage', function(Username) {
-		// Return order array
 		socket.emit('GetLanguage', status);
 	});
 });

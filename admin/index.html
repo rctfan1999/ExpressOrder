@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<title>Empty Tables for Testing</title>
+		<script src="/socket.io/socket.io.js"></script>
+		<link rel="apple-touch-icon" sizes="180x180" href="../media/favicons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" href="../media/favicons/favicon.ico">
+		<link rel="manifest" href="../media/favicons/manifest.json">
+		<link rel="mask-icon" href="../media/favicons/safari-pinned-tab.svg" color="#5bbad5">
+		<meta name="theme-color" content="#ffffff">
+	</head>
+	<body>
+		<h1>There is nothing here</h1>
+		<h3>
+			<a href="../">Click here to go home</a>
+		</h3>
+		<script>
+		var socket = io.connect();
+		socket.emit('EmptyTables', 5);
+		</script>
+	</body>
+</html>

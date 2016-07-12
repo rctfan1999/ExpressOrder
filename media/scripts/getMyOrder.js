@@ -3,26 +3,28 @@
 var socket = io.connect();
 
 // Request student's orders
-var Username = "24676637";
+var Username = localStorage.getItem("StuID");
 socket.emit('GetMyOrder', Username);
 
 // When server returns the order, display
 socket.on('GetMyOrder', function(Order) {
-	console.log(Order); // See array for debug purposes
+
+	// Get values from the array and set to variables
+	var OrderID = Order.OrderID;
+	var StudentID = Order.StudentID;
+	var Name = Order.StudentName;
+	var Entree = Order.Entree;
+	var FruitsVegetables1 = Order.FruitsVegetables1;
 	
-	// Create variables from data
-	var Entree = Order[3];
+	// If FruitsVegetables2 is undefined make it "null"
+	var FruitsVegetables2;
+	if (Order.FruitsVegetables2 !== "null") {FruitsVegetables2 = Order.FruitsVegetables2;}
+	else {FruitsVegetables2 = "null";}
+	var Beverage = Order.Beverage;
 	
-	// Add fruits and vegetables
-	var fruitsVegetablesArray = [];
-	fruitsVegetablesArray.push([Order[4]]); // First mandatory selection
-	if (Order[5] !== null) { // Second optional selection (can be null)
-		fruitsVegetablesArray.push([Order[5]]);
-	}
-	var Beverage = Order[6];
+	// Display Orders
 	
-	console.log(Order);
-	
+	// Entrees
 	$('#entrees').html('<div class="row foodObject">'+
 		'<div class="col-xs-7 cardObject">'+
 			'<img class="img-responsive" src="../media/foods/'+ Entree.replace(/\s/g, '') +'.jpg" width="220" height="138">'+
@@ -33,18 +35,24 @@ socket.on('GetMyOrder', function(Order) {
 		'</div>'+
 	'</div>');
 		
-	// Fruits and Vegetables
-	for (var x = 0; x < fruitsVegetablesArray.length; x++) {
+	// First ruits and Vegetables
+	$('#fruitsVegetables').append('<div class="row foodObject">'+
+		'<div class="col-xs-7 cardObject">'+
+			'<img class="img-responsive" src="../media/foods/'+ FruitsVegetables1.replace(/\s/g,'') +'.jpg" width="220" height="138">'+
+		'</div>'+
+			'<div class="col-xs-5 cardObject">'+
+			'<b>'+ FruitsVegetables1 +'</b><br>'+
+		'</div>'+
+	'</div>');
 	
-		var fruitsVegetablesSlug = String(fruitsVegetablesArray[x]); // Strip white space for file name
-		
+	// Second Fruits and Vegetables (checks if not null)
+	if (FruitsVegetables2 !== "null") {
 		$('#fruitsVegetables').append('<div class="row foodObject">'+
 			'<div class="col-xs-7 cardObject">'+
-				'<img class="img-responsive" src="../media/foods/'+ fruitsVegetablesSlug.replace(/\s/g,'') +'.jpg" width="220" height="138">'+
+				'<img class="img-responsive" src="../media/foods/'+ FruitsVegetables2.replace(/\s/g,'') +'.jpg" width="220" height="138">'+
 			'</div>'+
-
-			'<div class="col-xs-5 cardObject">'+
-				'<b>'+ fruitsVegetablesArray[x] +'</b><br>'+
+				'<div class="col-xs-5 cardObject">'+
+				'<b>'+ FruitsVegetables2 +'</b><br>'+
 			'</div>'+
 		'</div>');
 	}

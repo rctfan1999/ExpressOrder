@@ -5,6 +5,11 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>Payment Method | Settings | Express Order</title>
+	<link rel="apple-touch-icon" sizes="180x180" href="../../media/favicons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" href="../../media/favicons/favicon.ico">
+	<link rel="manifest" href="../../media/favicons/manifest.json">
+	<link rel="mask-icon" href="../../media/favicons/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="theme-color" content="#ffffff">
 	
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="../../media/css/font-awesome.min.css">
@@ -22,7 +27,7 @@
 	
 	<!-- Custom Stylesheets and Scripts -->
 	<link href="../../media/stylesheet.css" rel="stylesheet">
-	<script src="../../media/scripts.js"></script>		
+	<script src="../../media/universalScripts.js"></script>
 </head>
 <body>
 	<div id="sidenav" class="sidenav">
@@ -74,40 +79,5 @@
 	</div>
 	
 	<div id="snackbar"></div>
-	<script>
-	$('.orderDisabled').hide();
-	var currentdate = new Date(); 
-	if (currentdate.getHours() >= 11 && currentdate.getHours() < 16) {
-		$('.orderDisabled').show();
-		$('.orderActive').hide();
-	}
-	function ordersDisabled() {
-		$('#snackbar').html("Please check back at 4 PM EST to preorder.");
-		showAlert();
-	}
-	
-	// Get Order Disabled Cookie
-	function getCookie(cname) {
-		var name = cname + "=";
-		var ca = document.cookie.split(';');
-		for(var i=0; i<ca.length; i++) {
-			var c = ca[i];
-			while (c.charAt(0)==' ') {
-				c = c.substring(1);
-			}
-			if (c.indexOf(name) == 0) {
-				return c.substring(name.length, c.length);
-			}
-		}
-		return "";
-	}
-	
-	// Check if orders are disabled via cookie
-	var disabled = getCookie("orderDisabled");
-	if (disabled) {
-		$('.orderDisabled').show();
-		$('.orderActive').hide();
-	}
-	</script>
 	</body>
 </html>
